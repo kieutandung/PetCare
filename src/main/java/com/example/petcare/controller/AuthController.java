@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -26,7 +26,6 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         System.out.println("🔐 Login attempt: " + request.getLoginValue());
         AuthResponse response = authService.login(request);
@@ -47,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/change-password")
     public ResponseEntity<AuthResponse> changePassword(
-            @RequestHeader("UserId") String userId,
+            @RequestHeader("UserId") Long userId,  // Đổi từ String sang Long
             @RequestBody ChangePasswordRequest request) {
         AuthResponse response = authService.changePassword(
                 userId,

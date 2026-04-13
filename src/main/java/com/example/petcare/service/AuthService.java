@@ -68,7 +68,7 @@ public class AuthService {
                 .success(true)
                 .token(token)
                 .refreshToken(refreshToken)
-                .userId(savedUser.getId())
+                .userId(String.valueOf(savedUser.getId()))
                 .fullName(savedUser.getFullName())
                 .email(savedUser.getEmail())
                 .phone(savedUser.getPhone())
@@ -102,7 +102,7 @@ public class AuthService {
                     .success(true)
                     .token(token)
                     .refreshToken(refreshToken)
-                    .userId(user.getId())
+                    .userId(String.valueOf(user.getId()))
                     .fullName(user.getFullName())
                     .email(user.getEmail())
                     .phone(user.getPhone())
@@ -132,6 +132,7 @@ public class AuthService {
                         .success(true)
                         .token(newToken)
                         .refreshToken(refreshToken)
+                        .userId(String.valueOf(user.getId()))
                         .message("Refresh token thành công")
                         .build();
             }
@@ -144,7 +145,7 @@ public class AuthService {
     }
 
     @Transactional
-    public AuthResponse changePassword(String userId, String oldPassword, String newPassword) {
+    public AuthResponse changePassword(Long userId, String oldPassword, String newPassword) {  // Đổi String thành Long
         User user = userRepository.findById(userId).orElse(null);
 
         if (user == null) {

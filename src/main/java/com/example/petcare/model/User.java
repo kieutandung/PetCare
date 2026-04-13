@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,10 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "CHAR(36)")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
