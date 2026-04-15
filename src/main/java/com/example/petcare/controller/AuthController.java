@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/change-password")
     public ResponseEntity<AuthResponse> changePassword(
-            @RequestHeader("UserId") Long userId,  // Đổi từ String sang Long
+            @RequestHeader("UserId") Long userId,
             @RequestBody ChangePasswordRequest request) {
         AuthResponse response = authService.changePassword(
                 userId,

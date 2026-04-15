@@ -16,13 +16,13 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:petcareSecretKey2024ForJWTTokenGenerationAndValidation}")
     private String secret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expiration:86400000}")
     private Long expiration;
 
-    @Value("${jwt.refresh-expiration}")
+    @Value("${jwt.refresh-expiration:604800000}")
     private Long refreshExpiration;
 
     private Key getSigningKey() {

@@ -42,6 +42,9 @@ dependencies {
     // Development Tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    // Thêm OAuth2 Client
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'

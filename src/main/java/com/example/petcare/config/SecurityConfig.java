@@ -1,6 +1,8 @@
 package com.example.petcare.config;
 
+import com.example.petcare.security.CustomOAuth2UserService;
 import com.example.petcare.security.JwtAuthenticationFilter;
+import com.example.petcare.security.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,8 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -59,18 +63,32 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Quan trọng!
+                .cors(cors -> cors.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // OAuth2 Login
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oAuth2LoginSuccessHandler)
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/test/**").permitAll()
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/test/**",
+                                "/oauth2/**",
+                                "/login/**",
+                                "/",
+                                "/error"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

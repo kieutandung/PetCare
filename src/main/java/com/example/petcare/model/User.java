@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = true)
     private String phone;
 
     @Column(name = "password_hash")
