@@ -1,7 +1,7 @@
 package com.example.petcare.security;
 
 import com.example.petcare.model.User;
-import com.example.petcare.repository.UserRepository;
+import com.example.petcare.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

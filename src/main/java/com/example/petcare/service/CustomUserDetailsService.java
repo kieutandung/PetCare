@@ -1,6 +1,6 @@
 package com.example.petcare.service;
 
-import com.example.petcare.repository.UserRepository;
+import com.example.petcare.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

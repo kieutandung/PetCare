@@ -1,7 +1,7 @@
 package com.example.petcare.service;
 
 import com.example.petcare.model.*;
-import com.example.petcare.repository.UserRepository;
+import com.example.petcare.repository.user.UserRepository;
 import com.example.petcare.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

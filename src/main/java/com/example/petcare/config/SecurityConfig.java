@@ -63,11 +63,12 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // SỬA: Bật CORS lên
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 // OAuth2 Login
@@ -82,6 +83,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/test/**",
+                                "/api/appointments/**",  // Thêm dòng này
+                                "/api/services/**",      // Thêm dòng này
                                 "/oauth2/**",
                                 "/login/**",
                                 "/",
